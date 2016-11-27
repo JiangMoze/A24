@@ -1,0 +1,16 @@
+account
+PK：username：用户名
+    password：密码
+    email:邮箱
+    xm:真实姓名
+    address：地址
+
+profile:
+pk，FK :username 用户名，外键
+        lang：你平时用什么语言进行登录该店
+FK(category) catid:你喜欢的宠物种类的id号
+
+category：宠物种类表
+pk   catid:宠物种类id
+     name：宠物种类的名称
+     descn:宠物种类描述
