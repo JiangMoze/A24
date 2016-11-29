@@ -13,4 +13,9 @@ public class IndexController {
     public String index(){
         return "index";
     }
+
+    @RequestMapping("/main")
+    public String main(){
+        return "shop/main";
+    }
 }

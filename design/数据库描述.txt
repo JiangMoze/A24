@@ -14,3 +14,19 @@ category：宠物种类表
 pk   catid:宠物种类id
      name：宠物种类的名称
      descn:宠物种类描述
+
+product:宠物产品表
+pk productid:产品id
+fk  catid：宠物种类id
+    name：产品名称
+    descn：产品描述
+    pic:产品相片
+
+item：项目表
+pk  itemid:项目id
+fk  productid  产品表id
+    listprice：单价
+    attr1:项目描述
+
+
+

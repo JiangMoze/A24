@@ -1,5 +1,6 @@
 package com.weikun.mapper;
 
+import com.weikun.model.Category;
 import com.weikun.model.Item;
 import com.weikun.model.ItemExample;
 import java.util.List;
@@ -17,6 +18,10 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface ItemMapper {
+
+
+
+
     @SelectProvider(type=ItemSqlProvider.class, method="countByExample")
     long countByExample(ItemExample example);
 

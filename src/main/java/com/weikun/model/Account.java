@@ -3,11 +3,29 @@ package com.weikun.model;
 public class Account {
     private String username;
 
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
+    }
+
+    private String repassword;
     private String password;
 
     private String email;
 
     private String xm;
+    private Profile profile;
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
     private String address;
 

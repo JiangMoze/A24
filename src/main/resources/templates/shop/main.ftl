@@ -26,8 +26,9 @@
 
 																	欢迎
 																	<#if account??>
-																	${account.username}
-
+																		${account.username}
+																	<#else>
+																		游客
 																	</#if>
 
 																</font></i></b>
@@ -36,9 +37,10 @@
 														</tr>
 														<tr>
 															<td>
-															<img
+																<a href="pet/qp/in_catid/FISH">
+																<img
 																		border="0" src="../images/fish_icon.gif" />
-															
+                                                                </a>
 																
 																<br>
 																<font size="2"><i></i>

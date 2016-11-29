@@ -29,7 +29,7 @@
         <tr>
             <td>
                 <input type="image" border="0" src="../images/button_submit.gif"/>
-                <a href="registermain.xhtml"><img border="0"
+                <a href="rmain"><img border="0"
                                                   src="../images/button_register_now.gif"/>
                 </a>
             </td>

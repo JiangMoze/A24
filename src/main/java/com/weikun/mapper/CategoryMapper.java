@@ -17,6 +17,15 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface CategoryMapper {
+    @Select("SELECT * FROM category where catid=#{catid}")
+    @Results({
+            @Result(column="catid", property="catid", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="descn", property="descn", jdbcType=JdbcType.VARCHAR)
+    })
+    Category queryCategoryByid(String catid);
+
+
     @SelectProvider(type=CategorySqlProvider.class, method="countByExample")
     long countByExample(CategoryExample example);
 

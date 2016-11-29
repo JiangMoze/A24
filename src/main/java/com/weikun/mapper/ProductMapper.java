@@ -1,5 +1,6 @@
 package com.weikun.mapper;
 
+import com.weikun.model.Item;
 import com.weikun.model.Product;
 import com.weikun.model.ProductExample;
 import java.util.List;
@@ -17,6 +18,17 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface ProductMapper {
+
+    @Select("SELECT * FROM product where productid=#{productid}")
+    @Results({
+            @Result(column="productid", property="productid", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="catid", property="catid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="descn", property="descn", jdbcType=JdbcType.VARCHAR),
+            @Result(column="pic", property="pic", jdbcType=JdbcType.VARCHAR)
+    })
+    Product queryProductByid(String productid);
+
     @SelectProvider(type=ProductSqlProvider.class, method="countByExample")
     long countByExample(ProductExample example);
 
