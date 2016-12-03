@@ -56,4 +56,14 @@ public interface PetMapper {//操作宠物的dao
 
     List<Item> queryItems(Map map);
 
+
+
+    @Insert("call p_8 (" +
+                " #{in_itemid,mode=IN,jdbcType=VARCHAR}  ," +
+                " #{in_quantity,mode=IN,jdbcType=VARCHAR},  " +
+                " #{out_orderid,mode=OUT,jdbcType=INTEGER}  " +
+            " )")
+    @Options(statementType = StatementType.CALLABLE)
+    void addCart(Map map);
+
 }

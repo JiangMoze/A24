@@ -6,6 +6,16 @@ public class Item {
     private String itemid;
     private Product product;
 
+    private Cart cart;
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     public Product getProduct() {
         return product;
     }

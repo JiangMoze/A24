@@ -1,7 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-
-
-
+<#include "../commons/top.ftl" encoding="utf-8" parse="true"/>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
 		<td valign="top" width="20%" align="left">
@@ -26,25 +23,25 @@
 					cellpadding="5" >
 					<tr bgcolor="#cccccc">
 						<td>
-							
+							宠物编号
 						</td>
 						<td>
-							
+							产品序号
 						</td>
 						<td>
-							
+							宠物描述
 						</td>
 						<td>
-							<b></b>
+							<b>是否有宠物</b>
 						</td>
 						<td width="100">
-							
+							宠物单价
 						</td>
 						<td>
-							
+							宠物数量
 						</td>
 						<td>
-							
+							合计
 						</td>
 						<td>
 							&nbsp;
@@ -52,50 +49,51 @@
 					</tr>
 
 			
-			
+					<#list clist as cart>
 					
-					
+						<#list cart.ilist as item>
 					<tr bgcolor="#FFFF88">
 						<td>
 							<b> 
 							
 							
-							<a href="viewitem.xhtml?itemid=<s:property value="#cart.itemid"/>"><s:property value="#cart.itemid"/></a>
+							<a href="">${item.itemid}</a>
 							
 							</b>
 						</td>
 						<td>
-							
+							${item.product.productid}
 						
 						</td>
 						<td>
-							
+							${item.attr1}
+							${item.product.name}
 							
 						</td>
 						<td align="center">
-						
+							是
 							
 						</td>
 						<td>
-							
+							${item.listprice}
 														
 						</td>
 						<td align="right">
-							
+							${cart.quantity}
 							<br/>
 						</td>
 						<td align="right">
-						
+						${item.listprice*cart.quantity}
 							
 						</td>
 						<td>
-							<a href="cartremove.xhtml?itemid=<s:property value="#cart.itemid"/>"><img border="0"
-									src="../images/button_remove.gif" />
+							<a href=""><img border="0"
+									src="/images/button_remove.gif" />
 							</a>
 						</td>
 					</tr>
-					
-					
+						</#list>
+					</#list>
 			
 					<tr bgcolor="#FFFF88">
 						<td colspan="7" align="right">
@@ -126,13 +124,11 @@
 		</td>
 
 
-		<td valign="top" width="20%" align="right">
-				<%@include file="favItem.jsp" %>	
-		</td>
+
 
 	</tr>
 </table>
 
 <br>
-<%@include file="../commons/banner.jsp" %>		
-<%@include file="../commons/bottom.ftl"%>
+
+<#include "../commons/bottom.ftl" encoding="utf-8" parse="true"/>

@@ -1,11 +1,9 @@
 package com.weikun.service;
 
+import com.weikun.mapper.CartMapper;
 import com.weikun.mapper.CategoryMapper;
 import com.weikun.mapper.PetMapper;
-import com.weikun.model.Category;
-import com.weikun.model.CategoryExample;
-import com.weikun.model.Item;
-import com.weikun.model.Product;
+import com.weikun.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,9 @@ public class PetService {
     private PetMapper pdao;
     @Autowired
     private CategoryMapper cdao;
+
+    @Autowired
+    private CartMapper c1dao;
 
     /**
      *
@@ -38,6 +39,13 @@ public class PetService {
 
     public List<Item> queryItems(Map map){
         return pdao.queryItems(map);
+    }
+    public void addCart(Map map){
+
+        pdao.addCart(map);
+    }
+    public List<Cart> selectByOrderid(int orderid){
+        return c1dao.selectByOrderid(orderid);
     }
 
 }

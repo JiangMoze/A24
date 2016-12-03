@@ -4,17 +4,8 @@ import com.weikun.model.Cart;
 import com.weikun.model.CartExample;
 import com.weikun.model.CartKey;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 public interface CartMapper {
@@ -42,11 +33,15 @@ public interface CartMapper {
     @InsertProvider(type=CartSqlProvider.class, method="insertSelective")
     int insertSelective(Cart record);
 
+
+
+
     @SelectProvider(type=CartSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="orderid", property="orderid", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="itemid", property="itemid", jdbcType=JdbcType.VARCHAR, id=true),
-        @Result(column="quantity", property="quantity", jdbcType=JdbcType.INTEGER)
+            @Result(column="orderid", property="orderid", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="itemid", property="itemid", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="quantity", property="quantity", jdbcType=JdbcType.INTEGER)
+
     })
     List<Cart> selectByExample(CartExample example);
 
@@ -63,6 +58,22 @@ public interface CartMapper {
         @Result(column="quantity", property="quantity", jdbcType=JdbcType.INTEGER)
     })
     Cart selectByPrimaryKey(CartKey key);
+
+
+    @Select({
+            "select",
+            "orderid, itemid, quantity",
+            "from cart",
+            "where orderid = #{orderid,jdbcType=INTEGER}"
+    })
+    @Results({
+            @Result(column="orderid", property="orderid", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="itemid", property="itemid", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="quantity", property="quantity", jdbcType=JdbcType.INTEGER),
+            @Result(property = "ilist",column = "itemid",javaType = List.class,
+                    many = @Many(select="com.weikun.mapper.ItemMapper.selectItemByid"))
+    })
+    List<Cart> selectByOrderid(int orderid);
 
     @UpdateProvider(type=CartSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Cart record, @Param("example") CartExample example);

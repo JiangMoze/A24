@@ -59,7 +59,7 @@
 
 		<tr bgcolor="#FFFF88">
 			<td>
-				<a href="cartmain.xhtml"><img border="0"
+				<a href="/pet/cart/in_itemid/${item.itemid}/in_quantity/1"><img border="0"
 						src="/images/button_add_to_cart.gif" />
 				</a>
 			</td>

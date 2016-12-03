@@ -4,22 +4,28 @@ import com.weikun.model.Category;
 import com.weikun.model.Item;
 import com.weikun.model.ItemExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 public interface ItemMapper {
 
+    @Select({
+            "select ",
+            "itemid, productid, listprice,  attr1  ",
+            "from item",
+            "where itemid = #{itemid,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="itemid", property="itemid", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="productid", property="productid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="listprice", property="listprice", jdbcType=JdbcType.DECIMAL),
+            @Result(column="attr1", property="attr1", jdbcType=JdbcType.VARCHAR),
+            @Result(column="productid", property="product",
+                    one = @One(select = "com.weikun.mapper.ProductMapper.queryProductByid"))
 
+    })
+    Item selectItemByid(String itemid);
 
 
     @SelectProvider(type=ItemSqlProvider.class, method="countByExample")

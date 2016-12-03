@@ -1,5 +1,6 @@
 package com.weikun.controller;
 
+import com.weikun.model.Cart;
 import com.weikun.model.Item;
 import com.weikun.model.Product;
 import com.weikun.service.PetService;
@@ -67,5 +68,26 @@ public class PetController {
 
         return "shop/queryItem";
     }
+
+    @RequestMapping("/cart/in_itemid/{in_itemid}/in_quantity/{in_quantity}")
+    public String addCart(
+            @PathVariable("in_itemid")String in_itemid,
+            @PathVariable("in_quantity")String in_quantity,
+            ModelMap map1
+    ){
+        Map map=new HashMap();
+        map.put("in_itemid",in_itemid);
+        map.put("in_quantity",in_quantity);
+        map.put("out_orderid","");
+        pservice.addCart(map);
+
+        List<Cart> list=pservice.selectByOrderid(Integer.parseInt(map.get("out_orderid").toString()));
+        map1.put("clist",list);
+        return "shop/cart";
+
+
+    }
+
+
 
 }

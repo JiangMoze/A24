@@ -1,6 +1,17 @@
 package com.weikun.model;
 
 public class Cart extends CartKey {
+
+    private Object ilist;
+
+    public Object getIlist() {
+        return ilist;
+    }
+
+    public void setIlist(Object ilist) {
+        this.ilist = ilist;
+    }
+
     private Integer quantity;
 
     public Integer getQuantity() {
