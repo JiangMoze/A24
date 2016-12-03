@@ -37,7 +37,7 @@
 														</tr>
 														<tr>
 															<td>
-																<a href="pet/qp/in_catid/FISH">
+																<a href="/pet/qp/in_catid/FISH">
 																<img
 																		border="0" src="../images/fish_icon.gif" />
                                                                 </a>

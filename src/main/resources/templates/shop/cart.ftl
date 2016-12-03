@@ -16,8 +16,7 @@
 			<h2 align="center">
 				
 			</h2>
-			<form name="form1" method="post"
-				action="cartupdate.xhtml">
+            <form id="form1" name="form1" action="/pet/cart/update">
 				
 				<table align="center" bgcolor="#008800" border="0" cellspacing="2"
 					cellpadding="5" >
@@ -47,15 +46,15 @@
 							&nbsp;
 						</td>
 					</tr>
-
-			
+					<#assign sum=0/>
+					<#assign oid=0/>
 					<#list clist as cart>
 					
 						<#list cart.ilist as item>
 					<tr bgcolor="#FFFF88">
 						<td>
 							<b> 
-							
+							<input type="hidden" value="${item.itemid}" name="itemid">
 							
 							<a href="">${item.itemid}</a>
 							
@@ -79,25 +78,38 @@
 														
 						</td>
 						<td align="right">
-							${cart.quantity}
+
+							<input type="number" value="${cart.quantity}" name="qty"/>
+
 							<br/>
 						</td>
 						<td align="right">
+						<#assign sum=sum+item.listprice*cart.quantity/>
+
 						${item.listprice*cart.quantity}
 							
 						</td>
 						<td>
-							<a href=""><img border="0"
+                            <input type="hidden" value="${cart.orderid?c}" name="oid">
+							<#assign oid=cart.orderid?c />
+							<a href="/pet/cart/in_itemid/${item.itemid}/in_orderid/${cart.orderid?c}">
+								<img border="0"
 									src="/images/button_remove.gif" />
 							</a>
 						</td>
 					</tr>
 						</#list>
 					</#list>
-			
+
 					<tr bgcolor="#FFFF88">
 						<td colspan="7" align="right">
+
+
+                            <input type="image" src="/images/button_update_cart.gif">
+
+
 							<b>
+                                总计：${sum}
 							</b>							
 							
 						</td>
@@ -115,9 +127,11 @@
 
 			<br />
 			<center>
-				<a href="cartcheckout.xhtml"><img border="0"
-						src="../images/button_checkout.gif" />
-				</a>
+
+
+                <a href="/pet/check1?total=${sum?c}&oid=${oid}"><img border="0"
+                                                                           src="/images/button_checkout.gif" />
+                </a>
 			</center>
 
 

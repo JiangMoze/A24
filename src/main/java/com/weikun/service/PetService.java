@@ -2,6 +2,7 @@ package com.weikun.service;
 
 import com.weikun.mapper.CartMapper;
 import com.weikun.mapper.CategoryMapper;
+import com.weikun.mapper.OrdersMapper;
 import com.weikun.mapper.PetMapper;
 import com.weikun.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class PetService {
 
     @Autowired
     private CartMapper c1dao;
+
+
+    @Autowired
+    private OrdersMapper odao;
 
     /**
      *
@@ -46,6 +51,17 @@ public class PetService {
     }
     public List<Cart> selectByOrderid(int orderid){
         return c1dao.selectByOrderid(orderid);
+    }
+    public  int deleteByPrimaryKey(CartKey key){
+        return c1dao.deleteByPrimaryKey(key);
+    }
+
+    public int updateByPrimaryKey(Cart record){
+        return c1dao.updateByPrimaryKey(record);
+    }
+
+    public int updateByPrimaryKey(Orders record){
+        return odao.updateByPrimaryKey(record);
     }
 
 }

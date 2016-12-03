@@ -1,16 +1,18 @@
 package com.weikun.controller;
 
-import com.weikun.model.Cart;
-import com.weikun.model.Item;
-import com.weikun.model.Product;
+import com.weikun.model.*;
 import com.weikun.service.PetService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +70,70 @@ public class PetController {
 
         return "shop/queryItem";
     }
+    @RequestMapping("/check/in_orderid/{orderid}/total/{total}")
+    public String check(@PathVariable("orderid")  String  orderid,
+                        @PathVariable("total")  float  total){
+        Orders orders=new Orders();
+        orders.setOrderid(Integer.parseInt(orderid));
+        orders.setTotalprice(new BigDecimal(total));
+        orders.setOrderdate(new Date(System.currentTimeMillis()));
+        pservice.updateByPrimaryKey(orders);
+
+        return "shop/main";
+    }
+
+
+    @RequestMapping("/check1")
+    public String check1(@RequestParam("total") String total,@RequestParam("oid") String oid){
+        Orders orders=new Orders();
+        orders.setOrderid(Integer.parseInt(oid));
+        orders.setTotalprice(new BigDecimal(total));
+        orders.setOrderdate(new Date(System.currentTimeMillis()));
+
+        pservice.updateByPrimaryKey(orders);
+
+        return "shop/main";
+    }
+
+
+    @RequestMapping("/cart/update")
+    public String updateCart(
+            @RequestParam("itemid" )String[] itemid,
+            @RequestParam("qty" )String[] qty,
+            @RequestParam("oid" )String[] oid,
+            ModelMap map1
+
+    ){
+        for(int i=0;i<itemid.length;i++){
+            Cart c=new Cart();
+            c.setItemid(itemid[i]);
+            c.setOrderid(Integer.parseInt(oid[i]));
+            c.setQuantity(Integer.parseInt(qty[i]));
+            pservice.updateByPrimaryKey(c);
+        }
+
+        List<Cart> list=pservice.selectByOrderid(Integer.parseInt(oid[0]));
+        map1.put("clist",list);
+        return "shop/cart";
+    }
+    @RequestMapping("/cart/in_itemid/{in_itemid}/in_orderid/{in_orderid}")
+    public String delCart(
+            @PathVariable("in_itemid")String in_itemid,
+            @PathVariable("in_orderid")String in_orderid,
+            ModelMap map1
+
+    ){
+        CartKey key=new CartKey();
+        key.setOrderid(Integer.parseInt(in_orderid));
+        key.setItemid(in_itemid);
+        if(pservice.deleteByPrimaryKey(key)>0){
+            List<Cart> list=pservice.selectByOrderid(Integer.parseInt(in_orderid));
+            map1.put("clist",list);
+        }
+        return "shop/cart";
+    }
+
+
 
     @RequestMapping("/cart/in_itemid/{in_itemid}/in_quantity/{in_quantity}")
     public String addCart(
